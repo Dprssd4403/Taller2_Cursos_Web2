@@ -14,29 +14,26 @@ export class Services {
 
   servicios = [
     {
-      id: 1,
-      nombre: "Desarrollo Web con Angular",
-      descripcion: "Aprende a crear aplicaciones modernas y escalables desde cero.",
-      imagen: "https://images.unsplash.com/photo-1593720213428-28a5b9e94613?q=80&w=1000&auto=format&fit=crop",
-      precio: 49.99,
-      activo: true
-    },
-    {
-      id: 2,
-      nombre: "Diseño de Interfaces (UI/UX)",
-      descripcion: "Domina Figma y los principios de diseño para crear experiencias increíbles.",
-      imagen: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=1000&auto=format&fit=crop",
-      precio: 29.99,
-      activo: true
-    },
-    {
-      id: 3,
-      nombre: "Inteligencia Artificial Pro",
-      descripcion: "Crea modelos de Machine Learning y automatiza procesos complejos.",
-      imagen: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1000&auto=format&fit=crop",
-      precio: 0,
-      activo: false 
-    },
+  id: 1,
+  nombre: "Sede Central - Madrid",
+  descripcion: "Nuestra sede principal equipada con laboratorios de última generación y áreas de coworking.",
+  imagen: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1000&auto=format&fit=crop",
+  activo: true
+},
+{
+  id: 2,
+  nombre: "Campus Tecnológico - CDMX",
+  descripcion: "Ubicada en el corazón financiero, especializada en talleres presenciales y networking.",
+  imagen: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop",
+  activo: true
+},
+{
+  id: 3,
+  nombre: "Sede Innovación - Buenos Aires",
+  descripcion: "Espacio en desarrollo para nuestra próxima comunidad de aprendizaje en Sudamérica.",
+  imagen: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1000&auto=format&fit=crop",
+  activo: false 
+},
   ];
 
 

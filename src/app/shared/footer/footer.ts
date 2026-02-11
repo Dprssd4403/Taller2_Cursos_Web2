@@ -11,8 +11,8 @@ export class Footer {
 
   enlaces = [
     { texto: 'Home', link: '#' },
-    { texto: 'Acerca', link: '#' },
-    { texto: 'Mascotas', link: '#' },
+    { texto: 'Nosotros', link: '#' },
+    { texto: 'Cursos', link: '#' },
     { texto: 'Contacto', link: '#' },
     { texto: 'Registro', link: '#' },
   ]
