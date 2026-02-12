@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Usuario } from '../../models/usuarios';
 import { UsuarioServices } from '../../services/usuario-services';
 import { CommonModule } from '@angular/common';
@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './formulario.html',
   styleUrl: './formulario.css',
 })
-export class Formulario {
+export class Formulario implements OnInit {
 
   private servicioUsuario = inject(UsuarioServices);
 
@@ -54,7 +54,7 @@ export class Formulario {
   }
 
   //Metodo Eliminar
-  eliminarUsuario(id: number) {
+  eliminarUsuario(id: string) {
     if (confirm('¿Desea eliminar el registro?')) {
       this.servicioUsuario.deleteUsuario(id).subscribe(() => {
         this.listaUsuarios.set(this.listaUsuarios().filter(u => u.id !== id));
