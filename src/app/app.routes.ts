@@ -12,6 +12,7 @@ import { authGuard } from './guards/auth-guard';
 import { authGuardDeactivate } from './guards/deactive-guard';
 import { adminGuard } from './guards/match-guard';
 import { adminChildGuard } from './guards/active-child-guard';
+import { Error } from './shared/error/error';
 
 export const routes: Routes = [
     { path: '', component: Home },
@@ -19,6 +20,7 @@ export const routes: Routes = [
     { path: 'contacto', component: Contacto },
     { path: 'catalogo', component: CatalogoCursos },
     { path: 'login', component: Login },
+    { path: 'error', component: Error },
     { 
         path: 'registro', 
         component: Registro,
@@ -36,5 +38,5 @@ export const routes: Routes = [
             }
         ]
     },
-    { path: '**', redirectTo: '' }
+    { path: '**', redirectTo: '/error' }
 ];
