@@ -3,7 +3,8 @@ export interface Usuario {
   name: string;
   email: string;
   phone: string;
-  curso?: string; 
-  fecha?: string;
   rol: 'ADMIN' | 'EMPLEADO';
+  password?: string;
+  curso?: string;
+  fecha?: string;
 }

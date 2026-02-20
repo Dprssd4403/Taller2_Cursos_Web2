@@ -22,38 +22,46 @@
         <div class="hidden w-full md:block md:w-auto" id="navbar-default">
             <ul
                 class="font-bold flex flex-col items-center p-4 md:p-0 mt-4 border border-slate-800 rounded-2xl bg-slate-900 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent text-sm uppercase tracking-wider">
+                <li><a routerLink="/" routerLinkActive="text-indigo-400" [routerLinkActiveOptions]="{exact: true}"
+                        class="block py-2 text-slate-300 hover:text-white transition-all duration-300">Inicio</a></li>
+                <li><a routerLink="nosotros" routerLinkActive="text-indigo-400"
+                        class="block py-2 text-slate-300 hover:text-white transition-all duration-300">Nosotros</a></li>
+                @if (authService.getRole() === 'ADMIN') {
                 <li>
-                    <a routerLink="/" routerLinkActive="text-indigo-400" [routerLinkActiveOptions]="{exact: true}"
-                        class="block py-2 text-slate-300 hover:text-white transition-all duration-300">Inicio</a>
+                    <a routerLink="/admin/cursos" routerLinkActive="text-indigo-400"
+                        class="text-indigo-300 hover:text-white">
+                        Gestionar Cursos (Admin)
+                    </a>
                 </li>
-                <li>
-                    <a routerLink="nosotros" routerLinkActive="text-indigo-400"
-                        class="block py-2 text-slate-300 hover:text-white transition-all duration-300">Nosotros</a>
-                </li>
-                <li>
-                    <a routerLink="cursos" routerLinkActive="text-indigo-400"
-                        class="block py-2 text-slate-300 hover:text-white transition-all duration-300">Cursos</a>
-                </li>
-                <li>
-                    <a routerLink="catalogo" routerLinkActive="text-indigo-400"
-                        class="block py-2 text-slate-300 hover:text-white transition-all duration-300">Catalogo</a>
-                </li>
-                <li>
-                    <a routerLink="contacto" routerLinkActive="text-indigo-400"
-                        class="block py-2 text-slate-300 hover:text-white transition-all duration-300">Contacto</a>
-                </li>
+                } @else {
+                <li><a routerLink="catalogo" class="text-slate-300 hover:text-white">Catálogo</a></li>
+                }
+                <li><a routerLink="contacto" routerLinkActive="text-indigo-400"
+                        class="block py-2 text-slate-300 hover:text-white transition-all duration-300">Contacto</a></li>
+
+
+
                 <li>
                     <a routerLink="login" routerLinkActive="text-indigo-400"
-                        class="block py-2 text-slate-300 hover:text-white transition-all duration-300">Iniciar
-                        Sesión</a>
+                        class="block py-2 text-slate-300 hover:text-white transition-all duration-300">
+                        Iniciar Sesión
+                    </a>
                 </li>
-
                 <li class="mt-4 md:mt-0">
                     <a routerLink="registro"
                         class="inline-block py-2.5 px-6 text-slate-900 bg-white rounded-lg font-black text-center hover:bg-indigo-500 hover:text-white shadow-[0_4px_20px_-5px_rgba(255,255,255,0.3)] transition-all transform hover:-translate-y-1 active:scale-95">
                         REGISTRARSE
                     </a>
                 </li>
+
+                @if (authService.sesionIniciada()) {
+                <li>
+                    <button (click)="cerrarSesion()"
+                        class="block py-2 text-red-400 hover:text-red-500 font-black transition-all duration-300 cursor-pointer border-none bg-transparent uppercase">
+                        Cerrar Sesión
+                    </button>
+                </li>
+                }
             </ul>
         </div>
     </div>

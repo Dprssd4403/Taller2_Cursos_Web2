@@ -7,13 +7,34 @@ import { Cursos } from './shared/cursos/cursos';
 import { CatalogoCursos } from './features/catalogo-cursos/catalogo-cursos';
 import { Login } from './shared/login/login';
 
-export const routes: Routes = [
+// Guardianes
+import { authGuard } from './guards/auth-guard';
+import { authGuardDeactivate } from './guards/deactive-guard';
+import { adminGuard } from './guards/match-guard';
+import { adminChildGuard } from './guards/active-child-guard';
 
+export const routes: Routes = [
     { path: '', component: Home },
     { path: 'nosotros', component: Nosotros },
     { path: 'contacto', component: Contacto },
-    { path: 'registro', component: Registro },
-    { path: 'cursos', component: Cursos },
     { path: 'catalogo', component: CatalogoCursos },
     { path: 'login', component: Login },
+    { 
+        path: 'registro', 
+        component: Registro,
+        canActivate: [authGuard],
+        canDeactivate: [authGuardDeactivate]
+    },
+    {
+        path: 'admin',
+        canActivateChild: [adminChildGuard],
+        children: [
+            {
+                path: 'cursos',
+                component: Cursos,
+                canMatch: [adminGuard]
+            }
+        ]
+    },
+    { path: '**', redirectTo: '' }
 ];

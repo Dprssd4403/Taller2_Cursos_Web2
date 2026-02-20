@@ -13,20 +13,33 @@
     <div class="form-side">
         <div class="login-box">
             <div class="form-header">
-                <div class="badge">BLOQUEADO</div>
+                <div class="badge">SISTEMA</div>
                 <h2>Iniciar Sesión</h2>
                 <p>Introduce tus credenciales para continuar</p>
             </div>
 
-            <form class="main-form">
+            <form (ngSubmit)="iniciarSesion()" class="main-form">
+                
                 <div class="input-field">
-                    <label>CORREO ELECTRÓNICO</label>
-                    <input type="email" placeholder="alumno@ejemplo.com">
+                    <label for="email">CORREO ELECTRÓNICO</label>
+                    <input 
+                        [(ngModel)]="email" 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="alumno@ejemplo.com" 
+                        required>
                 </div>
 
                 <div class="input-field">
-                    <label>CONTRASEÑA</label>
-                    <input type="password" placeholder="••••••••••••">
+                    <label for="password">CONTRASEÑA</label>
+                    <input 
+                        [(ngModel)]="password" 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="••••••••••••" 
+                        required>
                 </div>
 
                 <div class="form-actions">
@@ -42,7 +55,7 @@
 
             <div class="form-footer">
                 <span>¿Nuevo en EduMaster?</span>
-                <a href="#">Crea una cuenta gratuita</a>
+                <a routerLink="/registro">Crea una cuenta gratuita</a>
             </div>
         </div>
     </div>

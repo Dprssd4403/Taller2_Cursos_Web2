@@ -1,6 +1,5 @@
-import { email } from '@angular/forms/signals';
 import { inject, Injectable, signal } from '@angular/core';
-import { getAuth, User, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { User } from 'firebase/auth'; // Asegúrate de tener instalado: npm install firebase
 import { map, Observable } from 'rxjs';
 import { UsuarioServices } from './usuario-services';
 
@@ -8,16 +7,11 @@ import { UsuarioServices } from './usuario-services';
   providedIn: 'root',
 })
 export class AuthService {
-
   private servicioUsuario = inject(UsuarioServices);
 
-  //localStorage
   sesionIniciada = signal<boolean>(localStorage.getItem('sesion') === 'true');
-  
+  rolActual = signal<string | null>(localStorage.getItem('rol'));
   usuario: User | null = null;
-
-  //Accedemos al rol del usuario
-  rolActual = signal<string | null>(localStorage.getItem('rol'))
 
   login(email: string, password: string): Observable<boolean> {
     return this.servicioUsuario.getUsuarios().pipe(
@@ -25,19 +19,22 @@ export class AuthService {
         const usuarioCoincide = usuarios.find(u => u.email === email && u.password === password);
 
         if (usuarioCoincide) {
-          localStorage.setItem('sesion', 'true')
-          //GUARDAR ESTOS DATOS CONVIRTIENDO EL OBJETO JSON A TEXTO
+          localStorage.setItem('sesion', 'true');
           localStorage.setItem('user', JSON.stringify(usuarioCoincide));
-
-          //guardar el rol
           localStorage.setItem('rol', usuarioCoincide.rol);
+          
           this.sesionIniciada.set(true);
+          this.rolActual.set(usuarioCoincide.rol);
 
           return true;
         }
         return false;
       })
-    )
+    );
+  }
+
+  getRole(): string | null {
+    return this.rolActual();
   }
 
   logout() {
@@ -47,5 +44,4 @@ export class AuthService {
     this.sesionIniciada.set(false);
     this.rolActual.set(null);
   }
-
 }
