@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { User } from 'firebase/auth'; // Asegúrate de tener instalado: npm install firebase
+import { User } from 'firebase/auth'; 
 import { map, Observable } from 'rxjs';
-import { UsuarioServices } from './usuario-services';
+import { UsuarioServices, Usuario } from './usuario-services';
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +31,11 @@ export class AuthService {
         return false;
       })
     );
+  }
+
+  getUsuarioLogueado(): Usuario | null {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
   }
 
   getRole(): string | null {

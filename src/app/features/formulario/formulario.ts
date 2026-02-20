@@ -6,8 +6,6 @@ import { Usuario, UsuarioServices } from '../../services/usuario-services';
 import { Salir } from '../../guards/deactive-guard';
 import { AuthService } from '../../services/auth-service';
 
-
-
 @Component({
   selector: 'app-formulario',
   standalone: true,
@@ -16,13 +14,16 @@ import { AuthService } from '../../services/auth-service';
   styleUrl: './formulario.css',
 })
 export class Formulario implements OnInit, Salir {
-
   private servicioUsuario = inject(UsuarioServices);
   public servicioAuth = inject(AuthService); 
   private router = inject(Router);
 
   listaUsuarios = signal<Usuario[]>([]);
   editando = false;
+
+  get esAdmin(): boolean {
+    return this.servicioAuth.rolActual() === 'ADMIN';
+  }
 
   nuevoUsuario: Usuario = {
     name: '',
@@ -31,7 +32,7 @@ export class Formulario implements OnInit, Salir {
     password: '',
     curso: '',
     fecha: '',
-    rol: 'ADMIN'
+    rol: 'EMPLEADO' 
   };
 
   ngOnInit(): void {
@@ -46,7 +47,6 @@ export class Formulario implements OnInit, Salir {
 
   guardarUsuario() {
     const accion = this.editando ? 'actualizar' : 'registrar';
-    
     if (confirm(`¿Estás seguro de que deseas ${accion} a este usuario?`)) {
       if (this.editando && this.nuevoUsuario.id) {
         this.servicioUsuario.putUsuario(this.nuevoUsuario.id, this.nuevoUsuario).subscribe(() => {
@@ -75,6 +75,7 @@ export class Formulario implements OnInit, Salir {
   }
 
   seleccionarParaEditar(user: Usuario) {
+    if (!this.esAdmin) return;
     this.editando = true;
     this.nuevoUsuario = { ...user };
   }
@@ -82,27 +83,15 @@ export class Formulario implements OnInit, Salir {
   resetear() {
     this.editando = false;
     this.nuevoUsuario = { 
-      name: '', 
-      email: '', 
-      phone: '', 
-      password: '', 
-      curso: '',
-      fecha: '',
-      rol: 'EMPLEADO' 
+      name: '', email: '', phone: '', password: '', curso: '', fecha: '', rol: 'EMPLEADO' 
     };
   }
 
   permiteSalir(): boolean {
-    const hayDatosIntroducidos = 
-      (this.nuevoUsuario.name?.trim() ?? '') !== '' || 
-      (this.nuevoUsuario.email?.trim() ?? '') !== '' || 
-      (this.nuevoUsuario.phone?.trim() ?? '') !== '' ||
-      (this.nuevoUsuario.curso?.trim() ?? '') !== '';
-
-    if (this.editando || hayDatosIntroducidos) {
-      return confirm('Tienes cambios sin guardar en el formulario. ¿Deseas salir de todas formas?');
+    const hayDatos = (this.nuevoUsuario.name?.trim() ?? '') !== '';
+    if (this.editando || hayDatos) {
+      return confirm('Tienes cambios sin guardar. ¿Deseas salir?');
     }
-
     return true;
   }
 }
